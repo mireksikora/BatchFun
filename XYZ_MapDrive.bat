@@ -1,8 +1,8 @@
 REM Mirek Sikora
 REM 05/25/2021
 REM Persistant drive mapping is causing Windows ID to be locked for users (consultants) that do not have company PC.
-REM Meaning they have their own consulting company owned PC, but not the XZY company PC that they work at, thus
-REM theirs PC is not part of the XZY domain. Cached redentials cause account lockout. 
+REM Meaning they have their own consulting company owned PC, but not the XYZ company PC that they work at, thus
+REM theirs PC is not part of the XYZ domain. Cached redentials cause account lockout. 
 REM This script will test connection to XYZ network and if successfull map network
 REM drive with option persistent set to no
 REM -------------------------------------------------------------------------------
@@ -71,6 +71,6 @@ REM @echo Listing cached redentials:
 REM @echo --------------------------
 REM cmdkey /list
 REM or
-REM type in Windos search box: Credential Manager
+REM type in Windows search box: Credential Manager
 
 REM timeout /T 30 /NOBREAK
