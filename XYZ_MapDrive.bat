@@ -8,7 +8,7 @@ REM drive with option persistent set to no
 REM -------------------------------------------------------------------------------
 
 @echo off
-mode con: cols=90 lines=25
+mode con: cols=90 lines=30
 Title XYZ network drives
 SETLOCAL
 SETLOCAL EnableDelayedExpansion
@@ -41,7 +41,8 @@ if "%XYZuserID%" == "" (
 )
 
 
-
+echo.
+echo Connecting S: drive
 net use S: \\%XYZlocalhost%\named-shared-folder\SubFolderName /user:%domain%%XYZuserID% * /PERSISTENT:NO
 
 if %errorlevel%== 0 (	
@@ -49,18 +50,24 @@ if %errorlevel%== 0 (
 	) else (
 		echo [31mUnable to map S:\ drive[0m		
 		echo Error level: %errorlevel%
-    		echo.
+		echo To disconnect all drives run: net use * /del /yes
+		timeout /T 10 /NOBREAK
 )
 
-
+echo.
+echo Connecting U: drive
 net use U: \\%XYZlocalhost%\sharedName-home\users\%XYZuserID% /user:%domain%%XYZuserID%  /PERSISTENT:NO
 
 if %errorlevel% == 0 (
 	echo [32mU: drive is now connected[0m
 	) else (
 		echo [31mUnable to map U:\ drive[0m
-    		echo Error level: %errorlevel%
-    		echo.	
+    	echo Error level: %errorlevel%
+		echo To disconnect all drives run: net use * /del /yes
+		ENDLOCAL
+		SETLOCAL DisableDelayedExpansion
+		timeout /T 10 /NOBREAK
+		Exit
 )
 
 ENDLOCAL
@@ -72,5 +79,8 @@ REM @echo --------------------------
 REM cmdkey /list
 REM or
 REM type in Windows search box: Credential Manager
-
-REM timeout /T 30 /NOBREAK
+REM
+REM If zombie connectios are active, disconnect all drives with this command:
+REM      ----------------------------------
+REM		 net use * /del /yes
+REM      ----------------------------------
