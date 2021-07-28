@@ -36,6 +36,9 @@ wmic /output:"%CD%\%tempf%" product get name,version
 
 type "%CD%\%tempf%"   > "%CD%\%OutfileName%"
 echo.  >> "%CD%\%OutfileName%"
+if defined %computername% do (
+	echo Computer name: %computername% >> "%CD%\%OutfileName%"
+)
 echo PC serial number: %pcserial% >> "%CD%\%OutfileName%"
 echo PC model number.: %pcmodel%  >> "%CD%\%OutfileName%"
 echo.
